@@ -1,0 +1,7 @@
+.incompletedLayout{
+    background-color: lightgrey;
+    width: 300px;
+    border: 15px solid goldenrod;
+    padding: 50px;
+    margin: 20px;
+}
