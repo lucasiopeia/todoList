@@ -1,36 +1,65 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import IncompletedBox from './Incompleted/IncompletedBox'
-import Completed from './Completed/CompletedBox'
-import TodoListDialog from './Modal/TodoListDialog'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
+import React, { Component } from "react";
+import "./App.css";
+import IncompletedBox from "./Incompleted/IncompletedBox";
+import CompletedBox from "./Completed/CompletedBox";
+import TodoListDialog from "./Modal/TodoListDialog";
+import "bootstrap/dist/css/bootstrap.min.css";
+// import Button from 'react-bootstrap/Button';
 
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { txtValue: "", item: [] };
+    this.handleAddTask = this.handleAddTask.bind(this);
+    this.isChangedName = this.isChangedName.bind(this);
+  }
+  //nhan state tu component addtask
+  handleAddTask = () => {
+    this.addTask(this.state.name);
+  };
+  //get value tu input type -> state name
+  isChangedName = (e) => {
+    this.setState({
+      ...this.state,
+      txtValue: e.target.value,
+    });
+  };
 
-const App = () => {
-  return (
-    <div className="container">
+  addTask = (name) => {
+    const item = this.state.item.concat(this.state.txtValue);
+    this.setState({
+      ...this.state,
+      item: item,
+    });
+    this.forceUpdate();
+  };
 
-      <div className="container-all">
-        <h1>CRUD App with Hooks</h1>
-          <TodoListDialog/>
-          <br>
-          </br>
-        <div className="incompleted">
-          <h2>Add user</h2>
-          <IncompletedBox />
+  render() {
+    return (
+      <div className="card card-body my-2">
+        <div className="sida">
+          <TodoListDialog
+            isChangedName={this.isChangedName}
+            handleAddTask={this.handleAddTask}
+            addTask={this.addTask}
+          />
         </div>
 
-        <div className="completed">
-          <h2>View users</h2>
-          <Completed />
-        </div>
+        <div className="container-all">
+          <div className="incompleted">
+            
 
+            <IncompletedBox name={this.state.item} />
+          </div>
+
+          <div className="completed">
+            
+            <CompletedBox />
+          </div>
+        </div>
       </div>
-    </div>
-  )
+    );
+  }
 }
 
 export default App;
-

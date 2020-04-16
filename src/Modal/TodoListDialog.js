@@ -1,39 +1,25 @@
-import React,{useState} from 'react'
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal'
+import React from "react";
+import Button from "react-bootstrap/Button";
+import MyVerticallyCenteredModal from "./ModalList";
+import "./TodoListDialog.css";
 
-function TodoListDialog() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+function TodoListDialog(props) {
+  const [modalShow, setModalShow] = React.useState(false);
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        To Do List
-      </Button>
+      <div className="addBtn">
+        <Button variant="primary" onClick={() => setModalShow(true)}>To Do New</Button>
+      </div>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>This is what you want to do</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>To Do New</p>
-          <input type="text" id="fname" name="fname"></input>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Save 
-          </Button>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-         
-        </Modal.Footer>
-      </Modal>
+      <MyVerticallyCenteredModal
+        isChangedName={props.isChangedName}
+        handleAddTask={props.handleAddTask}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </>
   );
 }
 
-export default TodoListDialog
+export default TodoListDialog;
