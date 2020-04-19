@@ -1,25 +1,17 @@
 import React, { Component } from "react";
 import "./CompletedBox.css";
-import ToDoList from "../TodoList/ToDoList";
+import CompleteList from "../TodoList/CompleteList";
 
 class CompletedBox extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tasks: [
-
-      ],
-    };
-  }
 
   render() {
     return (
       <div className="completedLayout">
-        <h4>To do List:</h4>
+        <h4>Complete List</h4>
         <div>
           {this.props.name.map((completeItem, index) => {
             return <>
-              <ToDoList name={completeItem}/>
+              <CompleteList name={completeItem}  onClick={this.props.onClick}/>
 
             </>;
           })}

@@ -35,32 +35,50 @@ class App extends Component {
 
   };
 
-  deleteTask = (name) => {
+  deleteTask = (name, array) => {
     const filteredTask = this.state.item.filter(task =>
       task !== name
     )
     this.setState({
-      item: filteredTask
+
+      [array]: filteredTask
+
     })
   }
 
   handleDelete = (event) => {
-    this.deleteTask(event.target.value)
+    this.deleteTask(event.target.value, "item")
   }
 
   handleChange = (event) => {
-    console.log("abc");
     if (event.target.checked === true) {
       const found = this.state.item.find(task =>
         task === event.target.name
       )
       this.setState({
+        ...this.state,
         completeItem: this.state.completeItem.concat(found)
       })
-      this.deleteTask(event.target.name)
+      this.deleteTask(event.target.name, "item")
       console.log(this.state.completeItem);
     }
   }
+
+  undoTask = (event) => {
+    const found = this.state.completeItem.find(task =>
+      task === event.target.value
+
+    )
+    console.log(event.target.value);
+    this.setState({
+      ...this.state,
+      item: this.state.item.concat(found)
+
+    })
+    this.deleteTask(event.target.value, "completeItem")
+
+  }
+
 
 
   render() {
@@ -83,7 +101,7 @@ class App extends Component {
 
           <div className="col-sm-5" id="completed">
 
-            <CompletedBox name={this.state.completeItem}  />
+            <CompletedBox name={this.state.completeItem} onClick={this.undoTask} />
           </div>
         </div>
       </div>
