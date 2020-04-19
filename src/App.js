@@ -9,9 +9,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { txtValue: "", item: [] };
+    this.state = { txtValue: "", item: [], completeItem: [] };
     this.handleAddTask = this.handleAddTask.bind(this);
     this.isChangedName = this.isChangedName.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   //nhan state tu component addtask
   handleAddTask = () => {
@@ -34,14 +35,31 @@ class App extends Component {
 
   };
 
-  deleteTask = (event) => {
+  deleteTask = (name) => {
     const filteredTask = this.state.item.filter(task =>
-      task !== event.target.value
+      task !== name
     )
-    console.log(filteredTask);
     this.setState({
       item: filteredTask
     })
+  }
+
+  handleDelete = (event) => {
+    this.deleteTask(event.target.value)
+  }
+
+  handleChange = (event) => {
+    console.log("abc");
+    if (event.target.checked === true) {
+      const found = this.state.item.find(task =>
+        task === event.target.name
+      )
+      this.setState({
+        completeItem: this.state.completeItem.concat(found)
+      })
+      this.deleteTask(event.target.name)
+      console.log(this.state.completeItem);
+    }
   }
 
 
@@ -53,19 +71,19 @@ class App extends Component {
             isChangedName={this.isChangedName}
             handleAddTask={this.handleAddTask}
             addTask={this.addTask}
-            
+
           />
         </div>
 
         <div className="row" id="center">
           <div className="col-sm-5" id="incompleted">
 
-            <IncompletedBox name={this.state.item} deleteTask={this.deleteTask} />
+            <IncompletedBox name={this.state.item} deleteTask={this.handleDelete} onCheck={this.handleChange} />
           </div>
 
           <div className="col-sm-5" id="completed">
 
-            <CompletedBox />
+            <CompletedBox name={this.state.completeItem}  />
           </div>
         </div>
       </div>

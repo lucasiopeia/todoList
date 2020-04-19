@@ -1,21 +1,10 @@
 import React, { Component } from "react";
 import "./IncompletedBox.css";
 import ToDoList from "../TodoList/ToDoList";
-import Button from "react-bootstrap/Button";
+
 
 //Xu ly cac Task
 class IncompletedBox extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tasks: [],
-    };
-  }
-
-  handleDelete = () => {
-    this.props.deleteTask(this.props.name)
-  }
-
 
   render() {
     return (
@@ -24,8 +13,8 @@ class IncompletedBox extends Component {
         <div>
           {this.props.name.map((item, index) => {
             return <>
-              <ToDoList name={item} />
-              <Button type="button" className="btn btn-outline-primary" onClick={this.props.deleteTask} value={item}><i className="btn btn-primary"></i>Delete</Button>
+              <ToDoList name={item} deleteTask={this.props.deleteTask} onCheck={this.props.onCheck} />
+              
             </>;
           })}
 
