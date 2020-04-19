@@ -1,0 +1,18 @@
+to-do-list-main ul,li{
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    font-size: 110%;
+    border-bottom: 5px;
+    border-radius: 5px;
+}
+
+to-do-list-main input{
+    margin-right: 5px;
+    font-size: 135%;
+}
+
+.to-do-list-main{
+    
+}

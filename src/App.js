@@ -31,29 +31,40 @@ class App extends Component {
       ...this.state,
       item: item,
     });
-    this.forceUpdate();
+
   };
+
+  deleteTask = (event) => {
+    const filteredTask = this.state.item.filter(task =>
+      task !== event.target.value
+    )
+    console.log(filteredTask);
+    this.setState({
+      item: filteredTask
+    })
+  }
+
 
   render() {
     return (
-      <div className="card card-body my-2">
+      <div className="container-all">
         <div className="sida">
           <TodoListDialog
             isChangedName={this.isChangedName}
             handleAddTask={this.handleAddTask}
             addTask={this.addTask}
+            
           />
         </div>
 
-        <div className="container-all">
-          <div className="incompleted">
-            
+        <div className="row" id="center">
+          <div className="col-sm-5" id="incompleted">
 
-            <IncompletedBox name={this.state.item} />
+            <IncompletedBox name={this.state.item} deleteTask={this.deleteTask} />
           </div>
 
-          <div className="completed">
-            
+          <div className="col-sm-5" id="completed">
+
             <CompletedBox />
           </div>
         </div>

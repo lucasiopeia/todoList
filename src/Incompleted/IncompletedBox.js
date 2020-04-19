@@ -1,38 +1,37 @@
 import React, { Component } from "react";
 import "./IncompletedBox.css";
-import ToDoList from "../ToDoList";
+import ToDoList from "../TodoList/ToDoList";
+import Button from "react-bootstrap/Button";
 
 //Xu ly cac Task
 class IncompletedBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [
-
-      ],
+      tasks: [],
     };
   }
+
+  handleDelete = () => {
+    this.props.deleteTask(this.props.name)
+  }
+
 
   render() {
     return (
       <div className="incompletedLayout">
-        <table className="table table-responsive">
-          <table className="table table-bordered ">
-            <thead>
-              <tr>
-                <th>Name of task</th>
-              </tr>
-            </thead>
-            <tbody>
-              <td>
-              {this.props.name.map((item, index) => {
-                return <ToDoList name={item} />;
-              })}
-              </td>
-            </tbody>
-            
-          </table>
-        </table>
+        <h4>To do List:</h4>
+        <div>
+          {this.props.name.map((item, index) => {
+            return <>
+              <ToDoList name={item} />
+              <Button type="button" className="btn btn-outline-primary" onClick={this.props.deleteTask} value={item}><i className="btn btn-primary"></i>Delete</Button>
+            </>;
+          })}
+
+        </div>
+
+
       </div>
     );
   }

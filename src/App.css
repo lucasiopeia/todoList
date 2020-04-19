@@ -1,14 +1,31 @@
-.container-all{
-  width: 100%;
-  margin-left: 50px;
+#center{
+  max-width: 100%;
+  margin-left: 10%;
 }
 
-.incompleted{
-  width: 45%;
-  float: left;
-
+*{
+  margin:0;
+  padding:0;
 }
-.completed{
-  width: 45%;
-  float: right;
+
+@media screen and (min-width: 768px) {
+  .container-all{
+    float: none;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .container-all{
+   
+   position: relative;
+  }
+  #center{
+    margin:0;
+    padding:0;
+  }
+  #completed{
+    float:right;
+    
+  }
 }
